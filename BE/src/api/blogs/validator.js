@@ -20,32 +20,28 @@ const blogSchema = {
       errorMessage: "Category is a mandatory field and needs to be a url!",
     },
   },
-  readTime: {
-    value: {
-      in: ["body"],
-      isNumber: {
-        errorMessage: "Category is a mandatory field and needs to be a number!",
-      },
-    },
-    unit: {
-      in: ["body"],
-      isString: {
-        errorMessage: "Category is a mandatory field and needs to be a string!",
-      },
+  "readTime.value": {
+    in: ["body"],
+    isInt: {
+      errorMessage: "Category is a mandatory field and needs to be a number!",
     },
   },
-  author: {
-    name: {
-      in: ["body"],
-      isString: {
-        errorMessage: "Category is a mandatory field and needs to be a string!",
-      },
+  "readTime.unit": {
+    in: ["body"],
+    isString: {
+      errorMessage: "Category is a mandatory field and needs to be a string!",
     },
-    avatar: {
-      in: ["body"],
-      isURL: {
-        errorMessage: "Category is a mandatory field and needs to be a url!",
-      },
+  },
+  "author.name": {
+    in: ["body"],
+    isString: {
+      errorMessage: "Category is a mandatory field and needs to be a string!",
+    },
+  },
+  "author.avatar": {
+    in: ["body"],
+    isURL: {
+      errorMessage: "Category is a mandatory field and needs to be a url!",
     },
   },
   content: "HTML",

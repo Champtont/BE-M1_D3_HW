@@ -23,7 +23,7 @@ const writeBlogs = (blogsArray) =>
 
 //post
 
-blogsRouter.post("/", (req, res, next) => {
+blogsRouter.post("/", checkblogSchema, triggerBadRequest, (req, res, next) => {
   try {
     console.log("REQUEST BODY: ", req.body);
     const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };
