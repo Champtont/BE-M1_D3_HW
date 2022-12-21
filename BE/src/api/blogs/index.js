@@ -8,14 +8,14 @@ import { checkblogSchema, triggerBadRequest } from "./validator.js";
 
 const { NotFound, Unauthorized, BadRequest } = httpErrors;
 
-const blogsRouter = express.Router();
-
 const blogsJSONPath = join(
   dirname(fileURLToPath(import.meta.url)),
   "blogs.json"
 );
 
 console.log("target -->", blogsJSONPath);
+
+const blogsRouter = express.Router();
 
 const getBlogs = () => JSON.parse(fs.readFileSync(blogsJSONPath));
 const writeBlogs = (blogsArray) =>
@@ -25,16 +25,11 @@ const writeBlogs = (blogsArray) =>
 
 blogsRouter.post("/", (req, res, next) => {
   try {
-    /* const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };
-    const blogsArray = getBlogs();
-    blogsArray.push(newBlog);
-    writeBlogs(blogsArray);
-    res.status(201).send({ id: newBlog.id });*/
     console.log("REQUEST BODY: ", req.body);
     const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };
     console.log("NEW BLOG: ", newBlog);
     const blogsArray = JSON.parse(fs.readFileSync(blogsJSONPath));
-    blogsArray.push(newblog);
+    blogsArray.push(newBlog);
     fs.writeFileSync(blogsJSONPath, JSON.stringify(blogsArray));
     res.status(201).send({ id: newBlog.id });
   } catch (error) {
