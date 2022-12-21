@@ -16,6 +16,7 @@ const port = 3002;
 server.use(cors());
 server.use(express.json());
 
+//endpoints
 server.use("/authors", authorsRouter);
 server.use("/blogs", blogsRouter);
 

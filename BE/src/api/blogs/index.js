@@ -15,18 +15,27 @@ const blogsJSONPath = join(
   "blogs.json"
 );
 
+console.log("target -->", blogsJSONPath);
+
 const getBlogs = () => JSON.parse(fs.readFileSync(blogsJSONPath));
 const writeBlogs = (blogsArray) =>
   fs.writeFileSync(blogsJSONPath, JSON.stringify(blogsArray));
 
 //post
 
-blogsRouter.post("/", checkblogSchema, triggerBadRequest, (req, res, next) => {
+blogsRouter.post("/", (req, res, next) => {
   try {
-    const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };
+    /* const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };
     const blogsArray = getBlogs();
     blogsArray.push(newBlog);
     writeBlogs(blogsArray);
+    res.status(201).send({ id: newBlog.id });*/
+    console.log("REQUEST BODY: ", req.body);
+    const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };
+    console.log("NEW BLOG: ", newBlog);
+    const blogsArray = JSON.parse(fs.readFileSync(blogsJSONPath));
+    blogsArray.push(newblog);
+    fs.writeFileSync(blogsJSONPath, JSON.stringify(blogsArray));
     res.status(201).send({ id: newBlog.id });
   } catch (error) {
     next(error);
@@ -37,14 +46,7 @@ blogsRouter.post("/", checkblogSchema, triggerBadRequest, (req, res, next) => {
 blogsRouter.get("/", (req, res, next) => {
   try {
     const blogsArray = getBlogs();
-    if (req.query && req.query.category) {
-      const filteredBlogs = blogsArray.filter(
-        (blog) => blog.category === req.query.category
-      );
-      res.send(filteredBlogs);
-    } else {
-      res.send(blogsArray);
-    }
+    res.send(blogsArray);
   } catch (error) {
     next(error);
   }
