@@ -14,15 +14,27 @@ const NewBlogPost = (props) => {
         <Form.Group controlId="blog-form" className="mt-3">
           <Form.Label>Title</Form.Label>
           <Form.Control size="lg" placeholder="Title" />
+          <Form.Label>Cover</Form.Label>
+          <Form.Control size="lg" placeholder="Url"></Form.Control>
+          <Form.Group>
+            <Form.Label>Read Time</Form.Label>
+            <Form.Control size="sm" placeholder="number"></Form.Control>
+            <Form.Control size="sm" placeholder="unit"></Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Author</Form.Label>
+            <Form.Control size="sm" placeholder="name"></Form.Control>
+            <Form.Control size="sm" placeholder="avatar url"></Form.Control>
+          </Form.Group>
         </Form.Group>
         <Form.Group controlId="blog-category" className="mt-3">
           <Form.Label>Category</Form.Label>
           <Form.Control size="lg" as="select">
-            <option>Category1</option>
-            <option>Category2</option>
-            <option>Category3</option>
-            <option>Category4</option>
-            <option>Category5</option>
+            <option>Comedy</option>
+            <option>Non-fiction</option>
+            <option>Fiction</option>
+            <option>Political</option>
+            <option>Tech</option>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="blog-content" className="mt-3">
