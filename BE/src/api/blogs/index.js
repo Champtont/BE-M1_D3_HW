@@ -10,7 +10,7 @@ const { NotFound, Unauthorized, BadRequest } = httpErrors;
 
 const blogsJSONPath = join(
   dirname(fileURLToPath(import.meta.url)),
-  "blogs.json"
+  "../../data/blogs.json"
 );
 
 console.log("target -->", blogsJSONPath);
@@ -23,7 +23,9 @@ const writeBlogs = (blogsArray) =>
 
 //post
 
-blogsRouter.post("/", checkblogSchema, triggerBadRequest, (req, res, next) => {
+//things set aside for now (checkblogSchema, triggerBadRequest,)
+
+blogsRouter.post("/", (req, res, next) => {
   try {
     console.log("REQUEST BODY: ", req.body);
     const newBlog = { ...req.body, createdAt: new Date(), id: uniqid() };

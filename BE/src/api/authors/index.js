@@ -1,12 +1,18 @@
 import express from "express";
-import fs from "fs";
+import fs from "fs-extra";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import uniqid from "uniqid";
+import {
+  getAuthors,
+  writeAuthors,
+  getBlogs,
+  writeBlogs,
+} from "../../lib/fs-tools.js";
 
 const authorsJSONPath = join(
   dirname(fileURLToPath(import.meta.url)),
-  "authors.json"
+  "../../data/authors.json"
 );
 
 console.log("target -->", authorsJSONPath);
@@ -14,11 +20,12 @@ console.log("target -->", authorsJSONPath);
 const authorsRouter = express.Router();
 
 //1 Get authors
-authorsRouter.get("/", (req, res) => {
+authorsRouter.get("/", async (req, res) => {
   const fileContent = fs.readFileSync(authorsJSONPath);
   const authors = JSON.parse(fileContent);
   res.send(authors);
 });
+
 //2 Get single author
 authorsRouter.get("/:authorId", (req, res) => {
   const authorID = req.params.authorId;

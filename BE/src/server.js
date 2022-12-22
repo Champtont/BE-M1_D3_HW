@@ -3,6 +3,8 @@ import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import authorsRouter from "./api/authors/index.js";
 import blogsRouter from "./api/blogs/index.js";
+import filesRouter from "./api/files/index.js";
+import { join } from "path";
 import {
   genericErrorHandler,
   unAuthorizedHandler,
@@ -13,12 +15,19 @@ import {
 const server = express();
 const port = 3002;
 
+const blogCoversFolderPath = join(process.cwd(), "./public/images/blogCovers");
+const authorsAvatarsFolderPath = join(process.cwd(), "./public/images/authors");
+console.log("look" + blogCoversFolderPath);
+
+server.use(express.static(blogCoversFolderPath));
+server.use(express.static(authorsAvatarsFolderPath));
 server.use(cors());
 server.use(express.json());
 
 //endpoints
 server.use("/authors", authorsRouter);
 server.use("/blogs", blogsRouter);
+server.use("/files", filesRouter);
 
 //Error handlers go under the routes
 server.use(notFoundHandler);
