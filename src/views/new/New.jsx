@@ -3,17 +3,22 @@ import { Button, Container, Form } from "react-bootstrap";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./styles.css";
-const NewBlogPost = (props) => {
+const NewBlogPost = () => {
   const [text, setText] = useState("");
-  const handleChange = useCallback((value) => {
-    setText(value);
-  });
+
   return (
     <Container className="new-blog-container">
       <Form className="mt-5">
         <Form.Group controlId="blog-form" className="mt-3">
           <Form.Label>Title</Form.Label>
-          <Form.Control size="lg" placeholder="Title" />
+          <Form.Control
+            size="lg"
+            placeholder="Title"
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+          />
           <Form.Label>Cover</Form.Label>
           <Form.Control size="lg" placeholder="Url"></Form.Control>
           <Form.Group>
@@ -39,11 +44,7 @@ const NewBlogPost = (props) => {
         </Form.Group>
         <Form.Group controlId="blog-content" className="mt-3">
           <Form.Label>Blog Content</Form.Label>
-          <ReactQuill
-            value={text}
-            onChange={handleChange}
-            className="new-blog-content"
-          />
+          <ReactQuill className="new-blog-content" />
         </Form.Group>
         <Form.Group className="d-flex mt-3 justify-content-end">
           <Button type="reset" size="lg" variant="outline-dark">
